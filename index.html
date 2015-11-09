@@ -6,11 +6,26 @@
 
 <body>
 <button id='submit'> submit </button>
+<button id='clear'> Clear </button>
+<div id='results'> </div>
 </body>
 
+<script src='js/zepto.js'> </script>
+
 <script>
-$("#submit").click(function(){
-alert("Good Morning")
-})
+$('#submit').click(function(){
+SUBMIT.Doit($('#results'));
+});
+
+$("#clear").click(function(){
+  $('#results').html('');
+});
+
+var SUBMIT = (function(module) {
+module.Doit = function(resultObject){
+ resultObject.prepend( 'Good Morning ' + '<br/>')
+};
+return module;
+} (SUBMIT  || {}));
 </script>
 </html>
