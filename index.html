@@ -5,25 +5,59 @@
 </head>
 
 <body>
-<button id='submit'> submit </button>
+<button id='submit'> Show </button>
 <button id='clear'> Clear </button>
-<div id='results'> </div>
+<!-- Content Session Section -->
+   <div class="content-right-section left-nav-space screen" id='results'>
+    <h1 class="page-title">Status Details</h1>
+	<table width="100%" border='1' id="Sessions">
+      <tr>
+        <th  align="left" scope="col">Title</th>
+		<th  align="left" scope="col">Body</th>
+      </tr>
+      
+    </table>
+  </div>
 </body>
 
-<script src='js/zepto.js'> </script>
+<script src="js/jQuery.js"></script>
 
 <script>
+$("#results").hide();
 $('#submit').click(function(){
 SUBMIT.Doit($('#results'));
 });
 
 $("#clear").click(function(){
-  $('#results').html('');
+  $("#results").hide();
 });
+
 
 var SUBMIT = (function(module) {
 module.Doit = function(resultObject){
- resultObject.prepend( 'Good Morning ' + '<br/>')
+
+	$.ajax({
+			
+			contentType : "application/json",
+			//url : "http://api.geonames.org/citiesJSON?north=44.1&south=-9.9&east=-22.4&west=55.2&lang=de&username=demo",
+			//url : "http://rest-service.guides.spring.io/greeting",
+			url :"http://jsonplaceholder.typicode.com/posts/1",
+			crossDomain:true,
+			type : "GET",
+			async : false
+			}).success(function(response){
+			var data = response;
+				console.log("response is "+JSON.stringify(response));
+				if(data != undefined && data != null && data.length != 0 ){
+						var str = "<tr  id='"+data.userId+"'><td>" + data.title + "</td><td>" + data.body+ "</td></tr>"
+						$('#Sessions tr:last').after(str);
+					}
+			}).error(function(response){
+				alert("error in fetching data");
+			})
+			$('#results').show();
+
+ //resultObject.prepend( 'Good Morning ' + '<br/>')
 };
 return module;
 } (SUBMIT  || {}));
