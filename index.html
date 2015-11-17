@@ -1,7 +1,7 @@
 <! doctype html>
 <html>
 <head>
- <title> My First Page </title>
+ <title>HP.com Business to Business</title>
 </head>
 
 <body>
@@ -10,11 +10,20 @@
 <!-- Content Session Section -->
    <div class="content-right-section left-nav-space screen" id='results'>
     <h1 class="page-title">Status Details</h1>
-	<table width="100%" border='1' id="Sessions">
+	<table width="100%" border='1' id="SSessions">
       <tr>
-        <th  align="left" scope="col">Title</th>
-		<th  align="left" scope="col">Body</th>
+        <!-- <th  align="left" scope="col">Title</th>
+		<th  align="left" scope="col">Body</th> -->
+		<td>Login name</td>
+		<td><input type="text" name="login" value=""></td>
       </tr>
+	   <tr>
+        <!-- <th  align="left" scope="col">Title</th>
+		<th  align="left" scope="col">Body</th> -->
+		<td>Password</td>
+		<td><input type="password" name="password" value=""></td>
+      </tr>
+	  <tr><td><input type="submit" name="Login" value="Login"></td></tr>
       
     </table>
   </div>
@@ -39,15 +48,23 @@ module.Doit = function(resultObject){
 	$.ajax({
 			
 			contentType : "application/json",
+			accept:"application/json",
 			//url : "http://api.geonames.org/citiesJSON?north=44.1&south=-9.9&east=-22.4&west=55.2&lang=de&username=demo",
 			//url : "http://rest-service.guides.spring.io/greeting",
 			url :"http://jsonplaceholder.typicode.com/posts/1",
+			//url : "http://services.groupkt.com/country/get/iso2code/IN",
 			crossDomain:true,
 			type : "GET",
-			async : false
+			async : false,
+			beforeSend : function(jqXhr){
+						jqXhr.setRequestHeader('Content-Type',"application/json; charset=utf-8");
+						jqXhr.setRequestHeader('Accept','application/json');
+						jqXhr.setRequestHeader('Access-Control-Allow-Origin','*');
+						jqXhr.setRequestHeader('Access-Control-Allow-Methods: POST, GET, OPTIONS');
+						}
 			}).success(function(response){
 			var data = response;
-				console.log("response is "+JSON.stringify(response));
+				alert("response is "+JSON.stringify(response));
 				if(data != undefined && data != null && data.length != 0 ){
 						var str = "<tr  id='"+data.userId+"'><td>" + data.title + "</td><td>" + data.body+ "</td></tr>"
 						$('#Sessions tr:last').after(str);
