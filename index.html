@@ -64,6 +64,7 @@ module.Doit = function(resultObject){
 						}
 			}).success(function(response){
 			var data = response;
+				alert("response is");
 				alert("response is "+JSON.stringify(response));
 				if(data != undefined && data != null && data.length != 0 ){
 						var str = "<tr  id='"+data.userId+"'><td>" + data.title + "</td><td>" + data.body+ "</td></tr>"
