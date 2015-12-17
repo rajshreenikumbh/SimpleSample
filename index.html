@@ -43,34 +43,19 @@ var SUBMIT = (function(module) {
 module.Doit = function(resultObject){
 
 	$.ajax({
+   url: "http://epvmrh6.americas.hpqcorp.net/is-bin/INTERSHOP.enfinity/WFS/HP-ePrime-Site/en_US/-/USD/ViewLogin-ProcessForm",
+   dataType: 'application/json',
+       complete: function (xhr, status) {
+    if (status === 'error' || !xhr.responseText) {
+       alert('error');
+    }
+    else {
+        var data = xhr.responseText;
+        alert(data);
+    }
+}
+});
 			
-			contentType : "application/json",
-			accept:"application/json",
-			//url : "http://api.geonames.org/citiesJSON?north=44.1&south=-9.9&east=-22.4&west=55.2&lang=de&username=demo",
-			//url : "http://rest-service.guides.spring.io/greeting",
-			url :"http://epvmrh6.americas.hpqcorp.net/is-bin/INTERSHOP.enfinity/WFS/HP-ePrime-Site/en_US/-/USD/ViewLogin-ProcessForm",
-			//url : "http://services.groupkt.com/country/get/iso2code/IN",
-			crossDomain:true,
-			type : "GET",
-			async : false,
-			beforeSend : function(jqXhr){
-						jqXhr.setRequestHeader('Content-Type',"application/json; charset=utf-8");
-						jqXhr.setRequestHeader('Accept','application/json');
-						jqXhr.setRequestHeader('Access-Control-Allow-Origin','*');
-						jqXhr.setRequestHeader('Access-Control-Allow-Methods: POST, GET, OPTIONS');
-						}
-			}).success(function(response){
-			var data = response;
-				alert("response is");
-				alert("response is "+JSON.stringify(response));
-				if(data != undefined && data != null && data.length != 0 ){
-						var str = "<tr  id='"+data.userId+"'><td>" + data.title + "</td><td>" + data.body+ "</td></tr>"
-						$('#Sessions tr:last').after(str);
-					}
-			}).error(function(response){
-				alert("error in fetching data");
-			})
-			$('#results').show();
 
  //resultObject.prepend( 'Good Morning ' + '<br/>')
 };
